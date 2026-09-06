@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { SectionHeading } from "@/components/SectionHeading";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { CTASection } from "@/components/CTASection";
-import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { faqs, business } from "@/lib/business-data";
 
 export const metadata: Metadata = {
@@ -41,9 +40,7 @@ export default function FAQPage() {
       </section>
 
       <section className="container-page section-spacing">
-        <RevealOnScroll>
-          <FAQAccordion items={faqs} />
-        </RevealOnScroll>
+        <FAQAccordion items={faqs} />
       </section>
 
       <section className="container-page pb-9 sm:pb-10">

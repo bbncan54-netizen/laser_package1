@@ -42,98 +42,86 @@ export default function HomePage() {
               </Button>
             </div>
           </div>
-          <div className="hidden lg:block" aria-hidden="true">
+          <RevealOnScroll className="hidden lg:block">
             <ConsultationPathMark className="w-full" variant="hero" />
-          </div>
+          </RevealOnScroll>
         </div>
       </section>
 
       {/* Trust strip */}
       <section className="container-page section-spacing pt-0 sm:pt-0 lg:pt-0">
-        <RevealOnScroll>
-          <TrustSection />
-        </RevealOnScroll>
+        <TrustSection />
       </section>
 
       {/* Services overview */}
       <section className="bg-surface-alt">
         <div className="container-page section-spacing">
-          <RevealOnScroll>
-            <SectionHeading
-              eyebrow="Services"
-              title="A focused range of treatments"
-              description="Every treatment starts with a conversation. Here's a quick look at what we offer — details and suitability are discussed during your consultation."
-            />
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {services.map((service) => (
-                <ServiceCard key={service.slug} service={service} />
-              ))}
-            </div>
-            <div className="mt-8">
-              <Button href="/services" variant="text">
-                View All Services →
-              </Button>
-            </div>
-          </RevealOnScroll>
+          <SectionHeading
+            eyebrow="Services"
+            title="A focused range of treatments"
+            description="Every treatment starts with a conversation. Here's a quick look at what we offer — details and suitability are discussed during your consultation."
+          />
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((service) => (
+              <ServiceCard key={service.slug} service={service} />
+            ))}
+          </div>
+          <div className="mt-8">
+            <Button href="/services" variant="text">
+              View All Services →
+            </Button>
+          </div>
         </div>
       </section>
 
       {/* Why choose this clinic */}
       <section className="container-page section-spacing">
-        <RevealOnScroll>
-          <SectionHeading eyebrow="Why Us" title="Why choose this clinic" />
-          <ul className="mt-8 grid gap-6 sm:grid-cols-3">
-            {[
-              "Clear communication at every step",
-              "A calm, professional environment",
-              "Treatment plans discussed — never assumed",
-            ].map((point) => (
-              <li key={point} className="rounded-md bg-surface-alt p-5 text-text">
-                {point}
-              </li>
-            ))}
-          </ul>
-        </RevealOnScroll>
+        <SectionHeading eyebrow="Why Us" title="Why choose this clinic" />
+        <ul className="mt-8 grid gap-6 sm:grid-cols-3">
+          {[
+            "Clear communication at every step",
+            "A calm, professional environment",
+            "Treatment plans discussed — never assumed",
+          ].map((point) => (
+            <li key={point} className="rounded-md bg-surface-alt p-5 text-text">
+              {point}
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* Process */}
       <section className="bg-surface-alt">
         <div className="container-page section-spacing">
-          <RevealOnScroll>
-            <SectionHeading
-              eyebrow="Process"
-              title="What to expect, from your first visit onward"
-            />
-            <div className="mt-10">
-              <ProcessSteps />
-            </div>
-          </RevealOnScroll>
+          <SectionHeading
+            eyebrow="Process"
+            title="What to expect, from your first visit onward"
+          />
+          <div className="mt-10">
+            <ProcessSteps />
+          </div>
         </div>
       </section>
 
       {/* FAQ preview */}
       <section className="container-page section-spacing">
-        <RevealOnScroll>
-          <SectionHeading
-            eyebrow="FAQ"
-            title="A few common questions before you book"
-          />
-          <div className="mt-8">
-            <FAQAccordion items={homeFaqPreview} />
-          </div>
-          <div className="mt-6">
-            <Link href="/faq" className="text-accent underline-offset-4 hover:underline">
-              View All FAQs →
-            </Link>
-          </div>
-        </RevealOnScroll>
+        <SectionHeading
+          eyebrow="FAQ"
+          title="A few common questions before you book"
+        />
+        <div className="mt-8">
+          <FAQAccordion items={homeFaqPreview} />
+        </div>
+        <div className="mt-6">
+          <Link href="/faq" className="text-accent underline-offset-4 hover:underline">
+            View All FAQs →
+          </Link>
+        </div>
       </section>
 
       {/* Final CTA */}
       <section className="container-page pb-9 sm:pb-10 lg:pb-10">
-        <RevealOnScroll>
-          <CTASection heading="Ready to talk it through? Book a free consultation — no pressure, no obligation." />
-        </RevealOnScroll>
+        <CTASection heading="Ready to talk it through? Book a free consultation — no pressure, no obligation." />
       </section>
     </>
   );

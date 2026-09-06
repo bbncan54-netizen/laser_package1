@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ResultsGallery } from "@/components/ResultsGallery";
 import { CTASection } from "@/components/CTASection";
-import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { business } from "@/lib/business-data";
 
 export const metadata: Metadata = {
@@ -23,9 +22,7 @@ export default function ResultsPage() {
       </section>
 
       <section className="container-page section-spacing">
-        <RevealOnScroll>
-          <ResultsGallery />
-        </RevealOnScroll>
+        <ResultsGallery />
       </section>
 
       <section className="container-page pb-9 sm:pb-10">
