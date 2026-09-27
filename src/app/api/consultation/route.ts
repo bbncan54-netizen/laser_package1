@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createLead } from "@/lib/data/leads";
+import { isDatabaseConfigured } from "@/lib/data/db";
 
 type ConsultationPayload = {
   name?: string;
@@ -11,18 +13,23 @@ type ConsultationPayload = {
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /**
- * Simple consultation lead endpoint.
+ * Consultation lead endpoint.
  *
- * Scope note: this project is a Professional-package lead-gen site.
- * No database, no CRM integration, and no booking/calendar system are
- * included here — those are Add-on / Custom scope per
- * 02_PACKAGES_AND_PRICING.md and 03_FEATURES_AND_ADDONS.md.
+ * Scope note: booking/calendar systems and CRM integration remain
+ * Add-on / Custom scope per 02_PACKAGES_AND_PRICING.md and
+ * 03_FEATURES_AND_ADDONS.md. What this endpoint DOES do (Level 1 Basic
+ * Admin, see 04_ADMIN_SYSTEM.md) is persist the validated lead so it is
+ * visible in /admin/leads — a simple form-to-admin-inbox workflow rather
+ * than a full CRM, per 03_FEATURES_AND_ADDONS.md §15.
  *
- * In a real deployment this handler would forward the validated lead to
- * an email service (e.g. Resend, SendGrid) using a server-side API key
- * stored in an environment variable — never in client code. For this
- * portfolio project the handler validates input and returns success
- * without a real third-party integration, since no real inbox exists.
+ * If no database is configured (POSTGRES_URL unset), the lead is
+ * validated but not persisted — this keeps the public form usable during
+ * local development / before a database is provisioned, matching the
+ * fallback behaviour in src/lib/data/*.
+ *
+ * Real email delivery (e.g. Resend, SendGrid) is not implemented here —
+ * that is a separate integration decision for the real deployment and is
+ * intentionally left out of this portfolio project.
  */
 export async function POST(request: NextRequest) {
   let payload: ConsultationPayload;
@@ -52,9 +59,20 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: errors.join(" ") }, { status: 422 });
   }
 
-  // TODO (real client deployment): send this lead via a server-side email
-  // provider. Intentionally not implemented in this fictional portfolio
-  // project — no real recipient exists.
+  const phone = payload.phone?.trim() || null;
+  const message = payload.message?.trim() || null;
 
-  return NextResponse.json({ status: "received" }, { status: 200 });
+  const persisted = await createLead({ name, email, phone, service, message });
+
+  // TODO (real client deployment): also send this lead via a server-side
+  // email provider (e.g. Resend, SendGrid) using an API key stored in an
+  // environment variable — never in client code. Intentionally not
+  // implemented in this fictional portfolio project — no real recipient
+  // exists. The lead is still saved to /admin/leads when a database is
+  // connected.
+
+  return NextResponse.json(
+    { status: "received", saved: persisted && isDatabaseConfigured() },
+    { status: 200 }
+  );
 }

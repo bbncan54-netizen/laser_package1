@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { business } from "@/lib/business-data";
+import { getBusinessInfo } from "@/lib/data/business-info";
 import { Button } from "./Button";
 
 const navItems = [
@@ -11,7 +11,8 @@ const navItems = [
   { href: "/contact", label: "Contact" },
 ];
 
-export function Footer() {
+export async function Footer() {
+  const business = await getBusinessInfo();
   const year = new Date().getFullYear();
 
   return (
