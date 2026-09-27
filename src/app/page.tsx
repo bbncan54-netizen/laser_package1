@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/Button";
+import { Hero } from "@/components/Hero";
 import { SectionHeading } from "@/components/SectionHeading";
 import { TrustSection } from "@/components/TrustSection";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ProcessSteps } from "@/components/ProcessSteps";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { CTASection } from "@/components/CTASection";
-import { RevealOnScroll } from "@/components/RevealOnScroll";
-import { ConsultationPathMark } from "@/components/ConsultationPathMark";
 import { business, services, faqs } from "@/lib/business-data";
 
 export const metadata: Metadata = {
@@ -22,31 +21,7 @@ const homeFaqPreview = faqs.slice(0, 3);
 export default function HomePage() {
   return (
     <>
-      {/* Hero */}
-      <section className="container-page pt-10 pb-9 sm:pt-14 sm:pb-10 lg:pt-9">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <div>
-            <h1 className="text-4xl leading-tight text-primary sm:text-5xl lg:text-[3.5rem]">
-              {business.name} — Laser &amp; Med Spa in {business.city}
-            </h1>
-            <p className="mt-5 max-w-xl text-lg text-text-muted">
-              Personalized laser and skin treatments, guided by a clear,
-              no-pressure consultation process.
-            </p>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Button href="/contact" variant="primary">
-                Book a Consultation
-              </Button>
-              <Button href="/services" variant="secondary">
-                View Our Services
-              </Button>
-            </div>
-          </div>
-          <RevealOnScroll className="hidden lg:block">
-            <ConsultationPathMark className="w-full" variant="hero" />
-          </RevealOnScroll>
-        </div>
-      </section>
+      <Hero eyebrow={`${business.name} · ${business.city}, ${business.province}`} />
 
       {/* Trust strip */}
       <section className="container-page section-spacing pt-0 sm:pt-0 lg:pt-0">
